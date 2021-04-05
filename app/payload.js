@@ -14,6 +14,11 @@ var payload = (function(window, undefined) {
 		return city[0]; 
 	};
 
+	const _getAll = function(param) {
+		const all = _helper(param.split('&all='));
+		return all[0]; 
+	};
+
 	const _getIcon = function(param) {
 		const icon = _helper(param.split('&icon='));
 		return icon[0]; 
@@ -49,7 +54,6 @@ var payload = (function(window, undefined) {
 		return null;
 	};
 
-
 	const _addElement = function (data) {
 		const icon_size = 25;
 		const windowWidth = window.innerWidth;
@@ -73,7 +77,16 @@ var payload = (function(window, undefined) {
 		var wx = document.getElementById('weather');
 		var loc = document.getElementById('location');
 
+		/* if city is 1, then show widget */
 		if(_getCity(_getURL()) == 1) {
+
+			if ((windowWidth > 800) && (windowWidth < 1300)) {
+				wx.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg;';
+			} else if (windowWidth > 1300) {
+				wx.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg; F';
+				loc.innerHTML = data.observations.location[0].city + ", " + data.observations.location[0].state.slice(0, 2) + "<br/>";
+			} else { }
+		} else if(_getAll(_getURL()) == 1) {
 
 			icon.src = data.observations.location[0].observation[0].iconLink.concat("?apiKey=", apiKey);
 			icon.height = icon_size;
@@ -85,6 +98,18 @@ var payload = (function(window, undefined) {
 			} else if (windowWidth > 1300) {
 				wx.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg; F';
 				loc.innerHTML = data.observations.location[0].city + ", " + data.observations.location[0].state.slice(0, 2) + "<br/>";
+			} else { }
+		} else if(_getIcon(_getURL()) == 1) {
+			icon.src = data.observations.location[0].observation[0].iconLink.concat("?apiKey=", apiKey);
+			icon.height = icon_size;
+			icon.width = icon_size;
+			icon.style = 'cursor: pointer';
+		} else if(_getTemp(_getURL()) == 1) {
+			if ((windowWidth > 800) && (windowWidth < 1300)) {
+				wx.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg;';
+			} else if (windowWidth > 1300) {
+				wx.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg; F';
+				//		loc.innerHTML = data.observations.location[0].city + ", " + data.observations.location[0].state.slice(0, 2) + "<br/>";
 			} else { }
 		}
 	};
@@ -103,10 +128,12 @@ var payload = (function(window, undefined) {
 	var a = _getCity(_getURL());
 	var b = _getIcon(_getURL());
 	var c = _getTemp(_getURL());
+	var d = _getAll(_getURL());
 
 	console.log("-->", a);
 	console.log("-->", b);
 	console.log("-->", c);
+	console.log("-->", d);
 
 	/* function loadAdditionalFiles(callback) {}
 	 * function getWidgetParams() {}

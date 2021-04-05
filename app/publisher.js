@@ -7,13 +7,14 @@
 	const zip = 94606; 
 
 	/* control what gets shown */
-	const city = 1;
+	const all = 1;
+	const city = 0;
 	const icon = 0;
 	const temp = 0;
 
 	const script = document.createElement('script');
 
-	script.src = '//' + domain + ':' + port + '/app/payload.js?zipcode=' + zip + '&city=' + city + '&icon=' + icon + '&temp=' + temp;
+	script.src = '//' + domain + ':' + port + '/app/payload.js?zipcode=' + zip + '&all=' + all + '&city=' + city + '&icon=' + icon + '&temp=' + temp;
 	script.async = true;
 
 	const includeScript = document.getElementsByTagName('script')[0];
