@@ -93,8 +93,11 @@ var payload = (function(window, undefined) {
 			icon.width = icon_size;
 			icon.style = 'cursor: pointer';
 
-			if ((windowWidth > 800) && (windowWidth < 1300)) {
+			if((windowWidth >= 300) && (windowWidth <= 400)) {
 				wx.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg;';
+			} else if ((windowWidth > 800) && (windowWidth < 1300)) {
+				wx.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg;';
+				loc.innerHTML = data.observations.location[0].city + "<br/>";
 			} else if (windowWidth > 1300) {
 				wx.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg; F';
 				loc.innerHTML = data.observations.location[0].city + ", " + data.observations.location[0].state.slice(0, 2) + "<br/>";
