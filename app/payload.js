@@ -58,6 +58,10 @@ var payload = (function(window, undefined) {
 		const icon_size = 25;
 		const windowWidth = window.innerWidth;
 
+		var a = document.createElement('a');
+		a.innerHTML = "microsoft";
+		a.setAttribute('title', 'microsoft');
+
 		var img = document.createElement('img');
 		img.id = 'icon';
 
